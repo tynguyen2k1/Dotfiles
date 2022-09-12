@@ -12,10 +12,10 @@ font:
     # family: TerminessTTF Nerd Font
     # family: NotoSansMono Nerd Font
     #family: MesloLGL Nerd Font
-    family: Fira Code Retina
+    family: Cascadia Code
 
     # The `style` can be specified to pick a specific face.
-    style: Regular
+    # style: Regular
 
   # Bold font face
   bold:
@@ -26,9 +26,9 @@ font:
     # family: Source Code Pro
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
-    family: Hack
+    # family: Hack
     # family: Fira Code SemiBold
-    #family: DejaVu Sans Mono
+    family: Cascadia Code Bold
     # family: JetBrains Mono
     # family: UbuntuMono Nerd Font
     # family: Monofur Nerd Font
@@ -48,7 +48,7 @@ font:
     # family: Source Code Pro Mono
     # family: CodeNewRoman Nerd Font
     # family: RobotoMono Nerd Font
-    family: Hack
+    family: Cascadia Code Italic
     # family: JetBrains Mono
     # family: UbuntuMono Nerd Font
     # family: Monofuritalic Nerd Font Mono
@@ -72,7 +72,7 @@ font:
     # family: UbuntuMono Nerd Font
     # family: Monofuritalic Nerd Font Mono
     # family: TerminessTTF Nerd Font
-    family: Source Code Pro
+    family: Cascadia Code Bold Italic
 
     # The `style` can be specified to pick a specific face.
     style: Bold Italic
@@ -84,14 +84,14 @@ font:
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
     x: 0
-    y: 1
+    y: 4
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,
   # increasing `y` moves the glyph upwards.
-  #glyph_offset:
-  #  x: 0
-  #  y: 0
+  glyph_offset:
+   x: 0
+   y: 2
 
   # Thin stroke font rendering (macOS only)
   #
@@ -134,11 +134,11 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 6
-    y: 6
+    x: 3
+    y: 3
 
   # Spread additional padding evenly around the terminal content.
-  dynamic_padding: false
+  # dynamic_padding: false
 
   # Window decorations
   #
@@ -190,7 +190,68 @@ scrolling:
   # Scroll to the bottom when new text is written to the terminal.
   #auto_scroll: false
 
+env:
+  TERM: xterm-256color
+
+  #background_opacity: 1
+window.opacity: 1
+
 schemes:
+
+# Project:    Nord Alacritty
+# Version:    0.1.0
+# Repository: https://github.com/arcticicestudio/nord-alacritty
+# License:    MIT
+# References:
+#   https://github.com/alacritty/alacritty
+  nord: &nord
+    primary:
+      background: '#2e3440'
+      foreground: '#d8dee9'
+      dim_foreground: '#a5abb6'
+    cursor:
+      text: '#2e3440'
+      cursor: '#d8dee9'
+    vi_mode_cursor:
+      text: '#2e3440'
+      cursor: '#d8dee9'
+    selection:
+      text: CellForeground
+      background: '#4c566a'
+    search:
+      matches:
+        foreground: CellBackground
+        background: '#88c0d0'
+      bar:
+        background: '#434c5e'
+        foreground: '#d8dee9'
+    normal:
+      black: '#3b4252'
+      red: '#bf616a'
+      green: '#a3be8c'
+      yellow: '#ebcb8b'
+      blue: '#81a1c1'
+      magenta: '#b48ead'
+      cyan: '#88c0d0'
+      white: '#e5e9f0'
+    bright:
+      black: '#4c566a'
+      red: '#bf616a'
+      green: '#a3be8c'
+      yellow: '#ebcb8b'
+      blue: '#81a1c1'
+      magenta: '#b48ead'
+      cyan: '#8fbcbb'
+      white: '#eceff4'
+    dim:
+      black: '#373e4d'
+      red: '#94545d'
+      green: '#809575'
+      yellow: '#b29e75'
+      blue: '#68809a'
+      magenta: '#8c738c'
+      cyan: '#6d96a5'
+      white: '#aeb3bb'
   # Tokyo Night theme, based on both:
   #   https://github.com/ghifarit53/tokyonight-vim
   #   https://github.com/enkia/tokyo-night-vscode-theme
@@ -249,5 +310,57 @@ schemes:
       magenta: '0xbb9af7'
       cyan:    '0x0db9d7'
       white:   '0xacb0d0'
+  dracula: &dracula
+    primary:
+      background: '#282a36'
+      foreground: '#f8f8f2'
+      bright_foreground: '#ffffff'
+    cursor:
+      text: CellBackground
+      cursor: CellForeground
+    vi_mode_cursor:
+      text: CellBackground
+      cursor: CellForeground
+    search:
+      matches:
+        foreground: '#44475a'
+        background: '#50fa7b'
+      focused_match:
+        foreground: '#44475a'
+        background: '#ffb86c'
+    footer_bar:
+      background: '#282a36'
+      foreground: '#f8f8f2'
+    hints:
+      start:
+        foreground: '#282a36'
+        background: '#f1fa8c'
+      end:
+        foreground: '#f1fa8c'
+        background: '#282a36'
+    line_indicator:
+      foreground: None
+      background: None
+    selection:
+      text: CellForeground
+      background: '#44475a'
+    normal:
+      black: '#21222c'
+      red: '#ff5555'
+      green: '#50fa7b'
+      yellow: '#f1fa8c'
+      blue: '#bd93f9'
+      magenta: '#ff79c6'
+      cyan: '#8be9fd'
+      white: '#f8f8f2'
+    bright:
+      black: '#6272a4'
+      red: '#ff6e6e'
+      green: '#69ff94'
+      yellow: '#ffffa5'
+      blue: '#d6acff'
+      magenta: '#ff92df'
+      cyan: '#a4ffff'
+      white: '#ffffff'
 # "storm" uses a lighter BG color
-colors: *tokyo-night-storm
+colors: *dracula

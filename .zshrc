@@ -1,15 +1,5 @@
 # zprezto
 source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-
-# theme
-eval "$(starship init zsh)"
-
-# editor
-export EDITOR='nvim'
-
-### RANDOM COLOR SCRIPT ###
-colorscript random
-
 ### PATH
 if [ -d "$HOME/.bin" ] ;
   then PATH="$HOME/.bin:$PATH"
@@ -18,6 +8,10 @@ fi
 if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
+
+# autoload docker-compose completion
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit && compinit -i
 
 
 ### Function extract for common file formats ###
@@ -73,6 +67,10 @@ alias lla='exa -la --color=always --group-directories-first'
 alias lt='exa -T --color=always --group-directories-first'
 alias lta='exa -aT --color=always --group-directories-first'
 
+#neovim
+alias vim='nvim'
+alias vi='nvim'
+
 # lazygit
 alias lg='lazygit'
 
@@ -118,18 +116,6 @@ alias remove="sudo pacman -R"
 alias autoremove="sudo pacman -Rns"
 alias cleanup='sudo pacman -Rns (pacman -Qtdq)'  # remove orphaned packages
 
-# Color-Toys Aliases
-alias 256colors2="${HOME}/.color-toys/256colors2.pl"
-alias bloks="${HOME}/.color-toys/bloks"
-alias colortest="${HOME}/.color-toys/colortest"
-alias colortest-slim="${HOME}/.color-toys/colortest-slim"
-alias colorview="${HOME}/.color-toys/colorview"
-alias colorbars="${HOME}/.color-toys/colorbars"
-alias panes="${HOME}/.color-toys/panes"
-alias pipes1="${HOME}/.color-toys/pipes1"
-alias pipes2="${HOME}/.color-toys/pipes2"
-alias pipes2-slim="${HOME}/.color-toys/pipes2-slim"
-
 # youtube-dl
 alias yta-aac="youtube-dl --extract-audio --audio-format aac "
 alias yta-best="youtube-dl --extract-audio --audio-format best "
@@ -152,6 +138,8 @@ alias coppy="xclip -sel c"
 # bare git repo alias for dotfiles
 alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
+# ssh
+alias ssh="kitty +kitten ssh"
 
 
 # tim kiem package
@@ -168,7 +156,31 @@ function package_visual_query() {
 alias pq='package_visual_query p'
 alias yq='package_visual_query y'
 
+# zsh plugins
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+source /usr/share/fzf/key-bindings.zsh 2> /dev/null
+source /usr/share/fzf/completion.zsh 2> /dev/null
+
+# fe [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+fe() {
+  IFS=$'\n' files=($(fzf-tmux --preview 'bat --color=always --style=changes --line-range=:500 {}' --layout=reverse --height 50% --border --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+}
+
+### UI
+# RANDOM COLOR SCRIPT
+# colorscript random
+nitch
+
+# nord dir_color
+# test -r ~/.dir_colors && eval $(dircolors ~/.dir_colors)
+
+# dracula dircolors
+eval "$(dircolors ~/.dir_colors/dracula)"
+
+# theme
+eval "$(starship init zsh)"
+
+
